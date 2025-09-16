@@ -1,17 +1,47 @@
+import 'dart:typed_data';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_cyber_security/Screens/home.dart';
-
 import 'About.dart';
 
 class Detection extends StatefulWidget {
   const Detection({super.key});
-
   @override
   State<Detection> createState() => _DetectionState();
 }
 
 class _DetectionState extends State<Detection> {
-  @override
+  String? fileName;
+  Uint8List? fileBytes;
+
+  Future<void> pickFile() async {
+    // Choose allowed file types (here: any file)
+    const XTypeGroup typeGroup = XTypeGroup(
+      label: 'files',
+      extensions: [], // empty means all file types
+    );
+
+    final XFile? file = await openFile(acceptedTypeGroups: [typeGroup]);
+
+    if (file != null) {
+      final bytes = await file.readAsBytes();
+
+      setState(() {
+        fileName = file.name;
+        fileBytes = bytes;
+      });
+
+      print("Picked file: $fileName (${fileBytes!.length} bytes)");
+    } else {
+      setState(() {
+        fileName = "No file selected";
+        fileBytes = null;
+      });
+    }
+  }
+
+
+    @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -53,11 +83,12 @@ class _DetectionState extends State<Detection> {
                 Center(child: Text("Run Malware Detection",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 40),)),
                 SizedBox(height: 30,),
                 Center(child: Text("Upload APK, metadata to analyze for potential malware and security threats.",style: TextStyle(color: Colors.white70,fontWeight: FontWeight.bold,fontSize: 20)),),
+                SizedBox(height: 50,),
                 Row(
                   children: [
                     Expanded(child: Container()),
                     SizedBox(
-                      height: size.height * 0.8,
+                      height: size.height * 1,
                       width: size.width *0.4,
                       child: Card(
                         elevation: 100,
@@ -68,17 +99,24 @@ class _DetectionState extends State<Detection> {
                             Icon(Icons.safety_check_outlined,size: 70,),
                             SizedBox(height: 20,),
                             Flexible( child: Text("Upload APK metadata or pre-bundled samples",textAlign: TextAlign.center,style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),)),
-                            //SizedBox(height: 20,),
-                            //Text("Select File",textAlign: TextAlign.start,style: TextStyle(fontSize: 30,color: Colors.grey),),
+                            SizedBox(height: 20,),
+                            Text(fileName ?? "No file selected",textAlign: TextAlign.start,style: TextStyle(fontSize: 30,color: Colors.green),),
                             SizedBox(height: 20,),
                             Text("Choose your File",style: TextStyle(fontSize: 20,color: Colors.blue),),
                             SizedBox(height: 20,),
                             Flexible(child: Text("Support for JSON , CSV and Parquet file formats",textAlign:TextAlign.center,style: TextStyle(fontSize: 25),)),
                             SizedBox(height: 20,),
-                            MaterialButton(onPressed: (){
-
-                            }
-
+                            MaterialButton(
+                              elevation: 4,
+                              minWidth: 100,
+                              disabledColor: Colors.yellow,
+                              hoverColor: Colors.green,
+                              color: Colors.blue,
+                              height: 50,
+                              onPressed: (){
+                                pickFile();
+                              },
+                              child: Text("Upload file"),
                             ),
                           ],
                         ),
@@ -86,7 +124,7 @@ class _DetectionState extends State<Detection> {
                     ),
                     Expanded(child: Container()),
                     SizedBox(
-                      height: size.height * 0.8,
+                      height: size.height * 1,
                       width: size.width *0.4,
                       child: Card(
                         elevation: 100,
@@ -95,7 +133,9 @@ class _DetectionState extends State<Detection> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.sd_card_alert_outlined,size: 100,),
+                            SizedBox(height: 50,),
                             Text("AI model predicts Safe or Malicious",textAlign: TextAlign.center,style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
+                            SizedBox(height: 30,),
                             Flexible(child: Text("Advanced machine learning algorithms for accurate detection",textAlign:TextAlign.center,style: TextStyle(fontSize: 25),))
                           ],
                         ),
@@ -104,6 +144,9 @@ class _DetectionState extends State<Detection> {
                     Expanded(child: Container()),
                   ],
                 ),
+                SizedBox(height: 50,),
+                Text("Build for cybersecurity research and education",textAlign: TextAlign.center,style: TextStyle(fontSize: 20 , color: Colors.white24 ,fontWeight: FontWeight.bold,wordSpacing: 20,letterSpacing: 10),),
+                SizedBox(height: 20,),
               ],
             ),
           ),

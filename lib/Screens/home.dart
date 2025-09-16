@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
                 expandedTitleScale: 3,
                 title: Text("Malware Detection",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                 centerTitle: false,
-                background: Image(image: AssetImage("assets/hacker.jpg",),fit: BoxFit.cover,),
+                background: Image(image: AssetImage("assets/security.jpg",),fit: BoxFit.cover,),
               ),
               expandedHeight: 350,
               pinned: true,
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       Expanded(child: Container()),
-                      Text("AI - Powered Apk Malware Detection",style: TextStyle(fontWeight: FontWeight.bold,color:Colors.blue,fontSize: 50),),
+                      Text("AI - Powered Apk Malware Detection",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,color:Colors.blue,fontSize: 50),),
                       Expanded(child: Container()),
                     ],
                   ),
@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
                         minWidth: size.width * 0.2,
                         height: 50,
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detection()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
                         },
                         color: Colors.blue,
                         child: Row(
@@ -134,8 +134,8 @@ class _HomeState extends State<Home> {
                       children: [
                         Expanded(child: Container()),
                         SizedBox(
-                          height: 350,
-                          width: 300,
+                          height: size.height * 0.65,
+                          width: size.width * 0.25,
                           child: Card(
                             color: Colors.blue,
                             shadowColor: Colors.purple,
@@ -167,8 +167,8 @@ class _HomeState extends State<Home> {
                         ),
                         Expanded(child: Container()),
                         SizedBox(
-                          height: 350,
-                          width: 300,
+                          height: size.height *0.65,
+                          width: size.width * 0.25,
                           child: Card(
                             color: Colors.blue[300],
                             shadowColor: Colors.purple,
@@ -200,8 +200,8 @@ class _HomeState extends State<Home> {
                         ),
                         Expanded(child: Container()),
                         SizedBox(
-                          height: 350,
-                          width: 300,
+                          height: size.height *0.65,
+                          width: size.width * 0.25,
                           child: Card(
                             color: Colors.blue,
                             shadowColor: Colors.purple,
@@ -238,6 +238,7 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 30,),
                   Row(
                     children: [
+                      SizedBox(width: 30,),
                       Container(
                         width: size.width * 0.4,
                         child: Column(
@@ -246,14 +247,14 @@ class _HomeState extends State<Home> {
                             SizedBox(height: 20,),
                             Text("The system analyzes APK metadata to classify apps as safe or malicious. It provides a confidence score and highlights suspicious features such as dangerous, API calls or embedded URLs.",textAlign: TextAlign.center,style: TextStyle(fontSize: 18,color: Colors.white70,),),
                             SizedBox(height: 20,),
-                            Text("Our advanced machine learning model has been trained on thousands of APK samples to identify patterns that indicates.....................................................................................................",textAlign: TextAlign.center,style: TextStyle(fontSize: 18,color: Colors.white70),)
+                            Text("Our advanced machine learning model has been trained on thousands of APK samples to identify patterns that indicates.",textAlign: TextAlign.center,style: TextStyle(fontSize: 18,color: Colors.white70),)
                           ],
                         ),
                       ),
                       Expanded(child: Container()),
                       SizedBox(
                         height: size.height * 0.6,
-                        width: size.width *0.5,
+                        width: size.width *0.45,
                         child: Card(
                           elevation: 100,
                           shadowColor: Colors.purple,
@@ -267,6 +268,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
+                      SizedBox(width: 30,),
                     ],
                   ),
                   SizedBox(height: 30,),

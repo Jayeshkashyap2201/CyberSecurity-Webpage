@@ -9,7 +9,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: Detection(),
+      home: Home(),
     ),
   );
 }
