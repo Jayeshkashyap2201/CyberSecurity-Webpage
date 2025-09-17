@@ -1,7 +1,11 @@
 import 'dart:typed_data';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_cyber_security/Cubit/createdStates.dart';
+import 'package:sih_cyber_security/Screens/StaticVriables.dart';
+import 'package:sih_cyber_security/Screens/VerifiedScreen.dart';
 import 'package:sih_cyber_security/Screens/home.dart';
+import 'package:sih_cyber_security/Screens/verifyingScreen.dart';
 import 'About.dart';
 
 class Detection extends StatefulWidget {
@@ -28,7 +32,9 @@ class _DetectionState extends State<Detection> {
 
       setState(() {
         fileName = file.name;
+        Static.filename = fileName!;
         fileBytes = bytes;
+        Static.value = 1;
       });
 
       print("Picked file: $fileName (${fileBytes!.length} bytes)");
@@ -113,8 +119,17 @@ class _DetectionState extends State<Detection> {
                               hoverColor: Colors.green,
                               color: Colors.blue,
                               height: 50,
-                              onPressed: (){
-                                pickFile();
+                              onPressed: () async{
+                                await pickFile();
+                                await Future.delayed(
+                                  Duration(seconds: 2) , (){
+                                    Navigator.push(
+                                      context, MaterialPageRoute(
+                                        builder: (context)=>Verifyingscreen()
+                                      )
+                                    );
+                                  }
+                                );
                               },
                               child: Text("Upload file"),
                             ),
